@@ -1,9 +1,16 @@
 import React from "react"
 import styled from "styled-components"
+import { rgba } from "polished"
 
 const Container = styled.div`
-  padding: 1.2rem 0.8rem;
+  padding: 5rem 0 0.8rem 0;
   font-family: "Merriweather", "Roboto", "sans-serif";
+
+  .background {
+    padding: 0.8rem 0 0.4rem 1rem;
+    background-color: ${({ order }) =>
+      order % 2 === 0 ? rgba("#f1f3f5", 0.8) : rgba("#e9ecef", 0.8)};
+  }
 
   .title-box {
     margin-bottom: 0.8rem;
@@ -35,20 +42,22 @@ const Container = styled.div`
   }
 `
 
-const PostListItem = ({ title, tags, quote, createdAt, content }) => {
+const PostListItem = ({ title, tags, quote, createdAt, content, order }) => {
   return (
-    <Container>
-      <div className="title-box">
-        <h3>{title}</h3>
+    <Container order={order}>
+      <div className="background">
+        <div className="title-box">
+          <h3>{title}</h3>
+        </div>
+        <div className="tag-box">
+          {tags.map(tag => (
+            <span className="tag" key={tag.id}>
+              {tag.name}{" "}
+            </span>
+          ))}
+        </div>
+        <div className="quote">{quote}</div>
       </div>
-      <div className="tag-box">
-        {tags.map(tag => (
-          <span className="tag" key={tag.id}>
-            {tag.name}{" "}
-          </span>
-        ))}
-      </div>
-      <div className="quote">{quote}</div>
     </Container>
   )
 }

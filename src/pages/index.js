@@ -6,6 +6,7 @@ import PostListItem from "../components/PostListItem"
 import styled from "styled-components"
 import mockupData from "../data"
 import PageLayout from "../components/PageLayout"
+import BackgroundImage from "gatsby-background-image"
 
 const Banner = styled.div`
   margin-bottom: 2rem;
@@ -35,8 +36,9 @@ const Banner = styled.div`
   }
 `
 
-const ListItem = styled.div`
-  background-color: ${({ idx }) => (idx % 2 === 0 ? "#f1f3f5" : "#e9ecef")};
+const BackgroundSection = styled(BackgroundImage)`
+  width: 100%;
+  background-size: cover;
 `
 
 const Recents = styled.h2`
@@ -47,11 +49,14 @@ const Recents = styled.h2`
 const IndexPage = ({ data }) => {
   const { posts, author, siteMeta, tags } = mockupData
 
+  const fixedImage = data.profileImages.edges[2].node.childImageSharp.fixed
+  const postImage = data.postImages.edges[2].node.childImageSharp.fluid
+
   return (
     <PageLayout>
       <Banner>
         <Image
-          fixed={data.allFile.edges[2].node.childImageSharp.fixed}
+          fixed={fixedImage}
           alt="profile img"
           className="profile-image"
         ></Image>
@@ -68,9 +73,11 @@ const IndexPage = ({ data }) => {
       <div>
         <Recents>Recents</Recents>
         {posts.map((post, idx) => (
-          <ListItem className="list-item" key={post.id} idx={idx}>
-            <PostListItem {...post} />
-          </ListItem>
+          <div key={post.id} idx={idx}>
+            <BackgroundSection fluid={postImage} className="background-image">
+              <PostListItem {...post} order={idx} />
+            </BackgroundSection>
+          </div>
         ))}
       </div>
     </PageLayout>
@@ -79,13 +86,26 @@ const IndexPage = ({ data }) => {
 
 export const getImages = graphql`
   {
-    allFile {
+    profileImages: allFile {
       edges {
         node {
           absolutePath
           childImageSharp {
             fixed(width: 100, height: 100, grayscale: true) {
               ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    }
+
+    postImages: allFile {
+      edges {
+        node {
+          absolutePath
+          childImageSharp {
+            fluid(grayscale: true) {
+              ...GatsbyImageSharpFluid
             }
           }
         }

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Bowlby+One+SC|Merriweather|Roboto|Sigmar+One&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
