@@ -1,21 +1,25 @@
 import React from "react"
 import { Link } from "gatsby"
+import ReactMarkdown from "react-markdown"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
+import Post from "../components/Post"
+
+const input = `
+# h1
+* This is test h1
+* This is test h2
+`
+
 const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
+  <div>
+    This is test
+    <Post />
+    <ReactMarkdown source={input} />
+  </div>
 )
 
 export default IndexPage
