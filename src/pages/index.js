@@ -7,21 +7,45 @@ import styled from "styled-components"
 import mockupData from "../data"
 import PageLayout from "../components/PageLayout"
 
-const PostList = styled.div`
-  .list-item {
-    margin-bottom: 1rem;
-  }
-`
-
 const Banner = styled.div`
+  margin-bottom: 2rem;
+  display: flex;
+  font-family: "Merriweather", "Georgia";
+
   .profile-image {
     border-radius: 50%;
   }
+
+  .banner-right {
+    margin-left: 1rem;
+  }
+
+  .intro-box {
+    margin-top: 0.4rem;
+  }
+
+  .display-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .introduction {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+`
+
+const ListItem = styled.div`
+  background-color: ${({ idx }) => (idx % 2 === 0 ? "#f1f3f5" : "#e9ecef")};
+`
+
+const Recents = styled.h2`
+  font-family: "Merriweather", "Roboto", "sans-serif";
+  font-size: 1.1rem;
 `
 
 const IndexPage = ({ data }) => {
   const { posts, author, siteMeta, tags } = mockupData
-  console.log("graphql data is : ", data)
 
   return (
     <PageLayout>
@@ -31,17 +55,24 @@ const IndexPage = ({ data }) => {
           alt="profile img"
           className="profile-image"
         ></Image>
-        <span>{author.displayName}</span>
+        <div className="banner-right">
+          <div>
+            <span className="display-name">{author.displayName}</span>
+          </div>
+          <div className="intro-box">
+            <span className="introduction">{author.introduction}</span>
+          </div>
+        </div>
       </Banner>
 
-      <PostList>
-        <h2>Recents</h2>
-        {posts.map(post => (
-          <div className="list-item" key={post.id}>
+      <div>
+        <Recents>Recents</Recents>
+        {posts.map((post, idx) => (
+          <ListItem className="list-item" key={post.id} idx={idx}>
             <PostListItem {...post} />
-          </div>
+          </ListItem>
         ))}
-      </PostList>
+      </div>
     </PageLayout>
   )
 }
