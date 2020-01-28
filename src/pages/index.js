@@ -1,43 +1,66 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
+import Image from "gatsby-image"
+import { graphql } from "gatsby"
 import PostListItem from "../components/PostListItem"
 import styled from "styled-components"
-import data from "../data"
-
-const input = `
-# h1
-* This is test h1
-* This is test h2
-`
-
-console.log("data is : ", data)
+import mockupData from "../data"
+import PageLayout from "../components/PageLayout"
 
 const PostList = styled.div`
-  margin-bottom: 1rem;
+  .list-item {
+    margin-bottom: 1rem;
+  }
 `
 
-const IndexPage = () => {
-  const { posts, author, siteMeta, tags } = data
+const Banner = styled.div`
+  .profile-image {
+    border-radius: 50%;
+  }
+`
+
+const IndexPage = ({ data }) => {
+  const { posts, author, siteMeta, tags } = mockupData
+  console.log("graphql data is : ", data)
 
   return (
-    <div>
-      <div>
-        <h4>This is author data</h4>
-        <div>
-          <span>displayName : {author.displayName}</span>
-        </div>
-      </div>
+    <PageLayout>
+      <Banner>
+        <Image
+          fixed={data.allFile.edges[2].node.childImageSharp.fixed}
+          alt="profile img"
+          className="profile-image"
+        ></Image>
+        <span>{author.displayName}</span>
+      </Banner>
 
-      <div>
-        <h1>This is post list area.</h1>
+      <PostList>
+        <h2>Recents</h2>
         {posts.map(post => (
-          <PostList>
+          <div className="list-item" key={post.id}>
             <PostListItem {...post} />
-          </PostList>
+          </div>
         ))}
-      </div>
-    </div>
+      </PostList>
+    </PageLayout>
   )
 }
+
+export const getImages = graphql`
+  {
+    allFile {
+      edges {
+        node {
+          absolutePath
+          childImageSharp {
+            fixed(width: 100, height: 100, grayscale: true) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage
