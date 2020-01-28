@@ -4,28 +4,37 @@ import styled from "styled-components"
 
 const Container = styled.div`
   max-width: 34rem;
-  height: 2rem;
+  height: 8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 
   .header-title {
-    color: green;
+    color: black;
+    text-decoration: none;
+    font-size: 2.4rem;
+    font-family: "Merriweather", "Roboto";
+    font-weight: 700;
   }
 
   .hamberger-button {
+    height: 2rem;
+    background: none;
+    border: none;
   }
 `
 
 const Header = () => {
   return (
     <Container>
-      <Link to="/" className="header-title">
-        Pseudocoder Kim
-      </Link>
-      <div className="hamberger-button">
-        <button>HBG</button>
+      <div>
+        <Link to="/" className="header-title">
+          Pseudocoder Kim
+        </Link>
+      </div>
+      <div>
+        <button className="hamberger-button">HBG</button>
       </div>
     </Container>
   )
