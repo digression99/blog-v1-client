@@ -2,9 +2,21 @@ console.log("gatsby config!")
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Template title`,
+    description: `Template description`,
+    author: `Pseudocoder Kim`,
+    bannerTitle: "Life in Pseudocode.",
+    bannerDescription: "Blog by Pseudocoder Kim",
+    bannerProfileUrl:
+      "https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    githubUrl: "https://www.github.com/digression99",
+    linkedinUrl: "https://www.linkedin.com/in/ilsik-kim-64b6a1a7",
+    landingAuthor: {
+      displayName: "Pseudocoder Kim",
+      picUrl:
+        "https://images.pexels.com/photos/2851815/pexels-photo-2851815.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      introduction: "Forever One-sided Lover of JavaScript, Vim, and CrossFit.",
+    },
   },
   plugins: [
     {

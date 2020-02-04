@@ -3,7 +3,6 @@ import Image from "gatsby-image"
 import { graphql } from "gatsby"
 import PostListItem from "../components/PostListItem"
 import styled from "styled-components"
-import mockupData from "../data"
 import PageLayout from "../components/PageLayout"
 import BackgroundImage from "gatsby-background-image"
 
@@ -46,7 +45,7 @@ const Recents = styled.h2`
 `
 
 const IndexPage = ({ data }) => {
-  const { author, siteMeta } = mockupData
+  const author = data.site.siteMetadata.author
   const posts = data.posts.edges.map(edge => edge.node)
   const fixedImage = data.profileImages.edges[2].node.childImageSharp.fixed
 
@@ -87,6 +86,21 @@ const IndexPage = ({ data }) => {
 
 export const getImages = graphql`
   {
+    site {
+      siteMetadata {
+        bannerTitle
+        bannerDescription
+        bannerProfileUrl
+        githubUrl
+        linkedinUrl
+        author: landingAuthor {
+          displayName
+          picUrl
+          introduction
+        }
+      }
+    }
+
     profileImages: allFile {
       edges {
         node {
