@@ -1,10 +1,14 @@
 import React from "react"
 import styled from "styled-components"
+import { Link } from "gatsby"
 import { rgba } from "polished"
 
-const Container = styled.div`
+const Container = styled(Link)`
+  display: block;
   padding: 5rem 0 0.8rem 0;
   font-family: "Merriweather", "Roboto", "sans-serif";
+  text-decoration: none;
+  color: inherit;
 
   .background {
     padding: 0.8rem 0 0.4rem 1rem;
@@ -42,9 +46,17 @@ const Container = styled.div`
   }
 `
 
-const PostListItem = ({ title, tags, quote, createdAt, content, order }) => {
+const PostListItem = ({
+  slug,
+  title,
+  tags,
+  quote,
+  createdAt,
+  content,
+  order,
+}) => {
   return (
-    <Container order={order}>
+    <Container order={order} to={`/${slug}`}>
       <div className="background">
         <div className="title-box">
           <h3>{title}</h3>
