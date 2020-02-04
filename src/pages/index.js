@@ -1,5 +1,4 @@
 import React from "react"
-import ReactMarkdown from "react-markdown"
 import Image from "gatsby-image"
 import { graphql } from "gatsby"
 import PostListItem from "../components/PostListItem"
@@ -49,6 +48,7 @@ const Recents = styled.h2`
 const IndexPage = ({ data }) => {
   const { author, siteMeta } = mockupData
   const posts = data.posts.edges.map(edge => edge.node)
+  const fixedImage = data.profileImages.edges[2].node.childImageSharp.fixed
 
   return (
     <PageLayout>
@@ -131,6 +131,7 @@ export const getImages = graphql`
             name
           }
           quote
+          slug
         }
       }
     }
