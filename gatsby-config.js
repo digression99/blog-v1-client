@@ -1,3 +1,5 @@
+console.log("gatsby config!")
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -5,6 +7,18 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: "gatsby-source-strapi",
+      options: {
+        apiURL: "http://localhost:1337",
+        queryLimit: 1000,
+        contentTypes: ["post", "user"],
+        loginData: {
+          identifier: "test-user",
+          password: "test-user",
+        },
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
