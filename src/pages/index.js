@@ -57,6 +57,7 @@ const IndexPage = ({ data }) => {
           alt="profile img"
           className="profile-image"
         ></Image>
+
         <div className="banner-right">
           <div>
             <span className="display-name">{author.displayName}</span>
