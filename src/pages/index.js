@@ -47,10 +47,8 @@ const Recents = styled.h2`
 `
 
 const IndexPage = ({ data }) => {
-  const { posts, author, siteMeta, tags } = mockupData
-
-  const fixedImage = data.profileImages.edges[2].node.childImageSharp.fixed
-  const postImage = data.postImages.edges[2].node.childImageSharp.fluid
+  const { author, siteMeta } = mockupData
+  const posts = data.posts.edges.map(edge => edge.node)
 
   return (
     <PageLayout>
@@ -74,7 +72,10 @@ const IndexPage = ({ data }) => {
         <Recents>Recents</Recents>
         {posts.map((post, idx) => (
           <div key={post.id} idx={idx}>
-            <BackgroundSection fluid={postImage} className="background-image">
+            <BackgroundSection
+              fluid={post.bannerImage.childImageSharp.fluid}
+              className="background-image"
+            >
               <PostListItem {...post} order={idx} />
             </BackgroundSection>
           </div>
@@ -108,6 +109,28 @@ export const getImages = graphql`
               ...GatsbyImageSharpFluid
             }
           }
+        }
+      }
+    }
+
+    posts: allStrapiPost {
+      edges {
+        node {
+          id
+          title
+          content
+          bannerImage {
+            childImageSharp {
+              fluid(grayscale: true) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          tags {
+            id
+            name
+          }
+          quote
         }
       }
     }
