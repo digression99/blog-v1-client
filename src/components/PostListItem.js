@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { rgba } from "polished"
+import TagBox from "./TagBox"
 
 const Container = styled(Link)`
   display: block;
@@ -17,13 +18,11 @@ const Container = styled(Link)`
   }
 
   .title-box {
-    margin-bottom: 0.8rem;
-
     h3 {
       margin: 0;
       font-weight: 700;
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   }
 
@@ -41,8 +40,13 @@ const Container = styled(Link)`
     border-radius: 2px;
   }
 
+  .created-at {
+    font-size: 0.6rem;
+  }
+
   .quote {
     font-size: 0.8rem;
+    padding: 0.1rem 0;
   }
 `
 
@@ -60,15 +64,10 @@ const PostListItem = ({
       <div className="background">
         <div className="title-box">
           <h3>{title}</h3>
-        </div>
-        <div className="tag-box">
-          {tags.map(tag => (
-            <span className="tag" key={tag.id}>
-              {tag.name}{" "}
-            </span>
-          ))}
+          <div className="created-at">{createdAt}</div>
         </div>
         <div className="quote">{quote}</div>
+        <TagBox tags={tags} />
       </div>
     </Container>
   )
