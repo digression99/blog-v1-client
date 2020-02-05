@@ -1,38 +1,10 @@
 import React from "react"
-import Image from "gatsby-image"
 import { graphql } from "gatsby"
+import BackgroundImage from "gatsby-background-image"
 import PostListItem from "../components/PostListItem"
 import styled from "styled-components"
 import PageLayout from "../components/PageLayout"
-import BackgroundImage from "gatsby-background-image"
-
-const Banner = styled.div`
-  margin-bottom: 2rem;
-  display: flex;
-  font-family: "Merriweather", "Georgia";
-
-  .profile-image {
-    border-radius: 50%;
-  }
-
-  .banner-right {
-    margin-left: 1rem;
-  }
-
-  .intro-box {
-    margin-top: 0.4rem;
-  }
-
-  .display-name {
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
-
-  .introduction {
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-`
+import Author from "../components/Author"
 
 const BackgroundSection = styled(BackgroundImage)`
   width: 100%;
@@ -45,29 +17,11 @@ const Recents = styled.h2`
 `
 
 const IndexPage = ({ data }) => {
-  const author = data.site.siteMetadata.author
   const posts = data.posts.edges.map(edge => edge.node)
-  const fixedImage = data.profileImages.edges[2].node.childImageSharp.fixed
 
   return (
     <PageLayout>
-      <Banner>
-        <Image
-          fixed={fixedImage}
-          alt="profile img"
-          className="profile-image"
-        ></Image>
-
-        <div className="banner-right">
-          <div>
-            <span className="display-name">{author.displayName}</span>
-          </div>
-          <div className="intro-box">
-            <span className="introduction">{author.introduction}</span>
-          </div>
-        </div>
-      </Banner>
-
+      <Author />
       <div>
         <Recents>Recents</Recents>
         {posts.map((post, idx) => (
@@ -102,38 +56,16 @@ export const getImages = graphql`
       }
     }
 
-    profileImages: allFile {
-      edges {
-        node {
-          absolutePath
-          childImageSharp {
-            fixed(width: 100, height: 100, grayscale: true) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
-      }
-    }
-
-    postImages: allFile {
-      edges {
-        node {
-          absolutePath
-          childImageSharp {
-            fluid(grayscale: true) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-
     posts: allStrapiPost {
       edges {
         node {
           id
           title
           content
+          quote
+          slug
+          createdAt: created_at(formatString: "MMMM D, YYYY")
+
           bannerImage {
             childImageSharp {
               fluid(grayscale: true) {
@@ -141,12 +73,11 @@ export const getImages = graphql`
               }
             }
           }
+
           tags {
             id
             name
           }
-          quote
-          slug
         }
       }
     }
