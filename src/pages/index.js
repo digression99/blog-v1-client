@@ -20,22 +20,24 @@ const IndexPage = ({ data }) => {
   const posts = data.posts.edges.map(edge => edge.node)
 
   return (
-    <PageLayout>
-      <Author />
-      <div>
-        <Recents>Recents</Recents>
-        {posts.map((post, idx) => (
-          <div key={post.id} idx={idx}>
-            <BackgroundSection
-              fluid={post.bannerImage.childImageSharp.fluid}
-              className="background-image"
-            >
-              <PostListItem {...post} order={idx} />
-            </BackgroundSection>
-          </div>
-        ))}
-      </div>
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Author />
+        <div>
+          <Recents>Recents</Recents>
+          {posts.map((post, idx) => (
+            <div key={post.id} idx={idx}>
+              <BackgroundSection
+                fluid={post.bannerImage.childImageSharp.fluid}
+                className="background-image"
+              >
+                <PostListItem {...post} order={idx} />
+              </BackgroundSection>
+            </div>
+          ))}
+        </div>
+      </PageLayout>
+    </>
   )
 }
 

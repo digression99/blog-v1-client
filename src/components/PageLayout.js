@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import "./layout.css"
+import "antd/dist/antd.css"
 import Header from "./Header"
 import SEO from "./seo"
+import Drawer from "./Drawer"
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -24,13 +26,24 @@ const Main = styled.main`
 `
 
 const PageLayout = ({ children }) => {
+  const [visible, setVisible] = useState(false)
+
+  const showDrawer = () => {
+    setVisible(true)
+  }
+
+  const onClose = () => {
+    setVisible(false)
+  }
+
   return (
     <>
       <SEO />
       <Container>
-        <Header />
+        <Header showDrawer={showDrawer} />
         <Main>{children}</Main>
       </Container>
+      <Drawer visible={visible} onClose={onClose} />
     </>
   )
 }

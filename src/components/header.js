@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
@@ -25,7 +25,7 @@ const Container = styled.div`
   }
 `
 
-const Header = () => {
+const Header = ({ showDrawer }) => {
   return (
     <Container>
       <div>
@@ -34,7 +34,9 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <button className="hamberger-button">HBG</button>
+        <button onClick={showDrawer} className="hamberger-button">
+          HBG
+        </button>
       </div>
     </Container>
   )
